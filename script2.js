@@ -1,20 +1,54 @@
 const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
+const filterByStatus = document.getElementById('filterByStatus');
 const taskListTable = document.getElementById('taskListTable');
-const newTaskForm = document.getElementById('newTaskForm'); // Added for new task form
+const newTaskForm = document.getElementById('newTaskForm');
+const taskTableBody = document.getElementById('taskTableBody');
 
-searchButton.addEventListener('click', () => {
-  // ... existing search functionality (unchanged)
-});
+// ... existing search functionality (potentially updated to include status filtering)
 
-// Optional: Add styling focus to the new task form section on page load
-newTaskForm.classList.add('new-task-form'); // Add a class for CSS targeting
+// Function to create a new table row for a task
+function createTaskRow(task) {
+  const tableRow = document.createElement('tr');
+  const titleCell = document.createElement('td');
+  titleCell.textContent = task.title;
+  const progressCell = document.createElement('td');
+  progressCell.textContent = task.progress;
+  const priorityCell = document.createElement('td');
+  priorityCell.textContent = task.priority;
+  const dateCell = document.createElement('td');
+  dateCell.textContent = task.dueDate;
+  const actionsCell = document.createElement('td');
 
-// You might add logic to handle new task form submission here (e.g., using AJAX)
-newTaskForm.addEventListener('submit', (event) => {
-  event.preventDefault(); // Prevent default form submission
-  // Implement your logic to submit new task data (title, progress, priority, due date)
-  console.log('New task data submitted:', {
-    // Access form element values here (e.g., newTaskForm.elements['taskTitle'].value)
+  // Edit button
+  const editButton = document.createElement('button');
+  editButton.textContent = 'Edit';
+  editButton.addEventListener('click', () => {
+    // Implement logic to edit the task (e.g., open a modal)
   });
-});
+  actionsCell.appendChild(editButton);
+
+  // Delete button
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete';
+  deleteButton.addEventListener('click', () => {
+    // Implement logic to delete the task (e.g., confirm and remove from data)
+    // Update the table after deletion
+  });
+  actionsCell.appendChild(deleteButton);
+
+  tableRow.appendChild(titleCell);
+  tableRow.appendChild(progressCell);
+  tableRow.appendChild(priorityCell);
+  tableRow.appendChild(dateCell);
+  tableRow.appendChild(actionsCell);
+
+  return tableRow;
+}
+
+// Function to update the task list based on search and filter criteria
+function updateTaskList() {
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  const selectedStatus = filterByStatus.value;
+
+  // ... existing search logic (potentially modified to include status filtering)
